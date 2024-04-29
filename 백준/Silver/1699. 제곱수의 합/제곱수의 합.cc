@@ -8,7 +8,7 @@ int n;
 int main()
 {
     cin >> n;
-    fill(dp, dp + 100001, 1000);
+    fill(dp, dp + n + 1, 1000);
     
     dp[0] = 0;
     for(int i = 1; i <= n; i++)
