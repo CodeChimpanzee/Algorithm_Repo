@@ -4,38 +4,29 @@
 
 using namespace std;
 
-vector<int> prime;
-int m, n;
+vector<int> sieve(int n)
+{
+    vector<int> prime;
+    vector<bool> is_p (n + 1, true);
+ 
+    for(int i = 2; i * i <= n; i++)
+        if(is_p[i])
+            for(int j = i * i; j <= n; j += i)
+                is_p[j] = false;
+
+    for(int i = 2; i <= n; i++)
+        if(is_p[i])
+            prime.push_back(i);
+
+    return prime;
+}
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
+    int m, n;
     cin >> m >> n;
-
-    prime.push_back(2);
-    for(int i = 3; i <= n; i++)
-    {
-        bool is_p = true;
-        int lim = (int)sqrt(i);
-        for(int p : prime)
-        {
-            if(i % p == 0)
-            {
-                is_p = false;
-                break;
-            }
-            if(p > lim)
-                break;
-        }
-        if(is_p)
-            prime.push_back(i);
-    }
-
+    vector<int> prime = sieve(n);
     for(int p : prime)
-    {
-        if(p < m) continue;
-        cout << p << "\n";
-    }
+        if(p >= m)
+            cout << p << "\n";
 }
