@@ -23,7 +23,8 @@ int main()
     {
         int m, n, x, y; cin >> m >> n >> x >> y;
         int ans = -1;
-        for(int i = x; i <= lcm(m, n); i += m)
+        int lim = lcm(m, n);
+        for(int i = x; i <= lim; i += m)
             if(i % n == y % n)
             {
                 ans = i;
