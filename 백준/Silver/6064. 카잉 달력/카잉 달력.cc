@@ -25,7 +25,10 @@ int main()
         int ans = -1;
         for(int i = x; i <= lcm(m, n); i += m)
             if(i % n == y % n)
+            {
                 ans = i;
+                break;
+            }
         cout << ans << "\n";
     }
 }
