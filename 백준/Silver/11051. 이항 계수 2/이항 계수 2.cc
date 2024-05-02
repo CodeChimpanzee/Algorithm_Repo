@@ -2,20 +2,30 @@
 
 using namespace std;
 
-int dp[1001][1001];
 int n, k;
+
+int modinv(int i, int mod)
+{
+    int res = 1, exp = mod - 2;
+    while(exp >= 1)
+    {
+        if(exp % 2 == 1)
+            res = (res * i) % mod;
+        
+        exp >>= 1;
+        i = (i * i) % mod;
+    }
+    return res;
+}
 
 int main()
 {
     cin >> n >> k;
-    for(int i = 1; i <= 1000; i++)
+    int ans = 1;
+    for(int i = 1; i <= k; i++)
     {
-        dp[i][0] = 1;
-        for(int j = 1; j < i; j++)
-        {  
-            dp[i][j] = (dp[i - 1][j] + dp[i - 1][j - 1]) % 10007; 
-        }
-        dp[i][i] = 1;
+        ans = (ans * (n - i + 1)) % 10007;
+        ans = (ans * modinv(i, 10007)) % 10007;
     }
-    cout << dp[n][k] << "\n";
+    cout << ans << "\n";
 }
