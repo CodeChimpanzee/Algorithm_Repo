@@ -22,7 +22,10 @@ int main()
         for(int p : prime)
         {
             if(i % p == 0)
+            {
                 is_p = false;
+                break;
+            }
             if(p > lim)
                 break;
         }
