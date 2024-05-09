@@ -18,8 +18,20 @@ int main()
     dat[n] = 1e10;
     sort(dat, dat + n);
 
-    ll ans = 2e9; 
-    for(int i = 0; i < n - 1; i++)
-        ans = min(ans, *lower_bound(dat + i + 1, dat + n, dat[i] + m) - dat[i]);
+    int st = 0, ed = 0;
+    ll ans = 2e9;
+    while(st <= ed && ed < n)
+    {
+        ll diff = dat[ed] - dat[st];
+        if(diff >= m)
+        {
+            ans = min(ans, diff);
+            st++;
+        }
+        else
+        {
+            ed++;
+        }
+    }
     cout << ans << "\n";
 }
