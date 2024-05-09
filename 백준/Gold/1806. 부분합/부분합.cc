@@ -1,27 +1,9 @@
 #include<iostream>
-#include<algorithm>
-#include<vector>
 
 using namespace std;
 
-vector<int> dat;
+int dat[100001];
 int n, s;
-
-int parametric_search(int st, int ed, int tgt)
-{
-    while(st < ed)
-    {
-        int md = (st + ed) / 2;
-        int mn = 0;
-        for(int i = md; i <= n; i++)
-            mn = max(mn, dat[i] - dat[i - md]);
-        if(mn < tgt)
-            st = md + 1;
-        else
-            ed = md;
-    }
-    return st;
-}
 
 int main()
 {
@@ -29,13 +11,24 @@ int main()
     cin.tie(nullptr);
 
     cin >> n >> s;
-    dat = vector<int> (n + 1);
-    dat[0] = 0;
-    for(int i = 1; i <= n; i++)
-    {
-        int t; cin >> t;
-        dat[i] = t + dat[i - 1];
-    }
+    for(int i = 0; i < n; i++)
+        cin >> dat[i];
 
-    cout << (dat[n] >= s ? parametric_search(1, n, s) : 0) << "\n";
+    int st = 0, ed = 0;
+    int psum = dat[0], ans = 100001;
+    while(st <= ed && ed < n)
+    {
+        if(psum >= s)
+        {
+            psum -= dat[st];
+            ans = min(ans, ed - st + 1);
+            st++;
+        }
+        else
+        {
+            ed++;
+            psum += dat[ed];
+        }
+    }
+    cout << (ans == 100001 ? 0 : ans) << "\n";
 }
