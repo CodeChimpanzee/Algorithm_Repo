@@ -25,21 +25,15 @@ public class Main {
 		
 		for(int i = 0; i < S; i++)
 		{
-			if(pdir == dir[i] && pos[i] > ppos)
+			int dist = hrz[pdir] - ppos, cdir = clk[pdir];
+			while(cdir != dir[i])
 			{
-				ans += (pos[i] - ppos);
+				dist += hrz[cdir];
+				cdir = clk[cdir];
 			}
-			else
-			{
-				int dist = hrz[pdir] - ppos, cdir = clk[pdir];
-				while(cdir != dir[i])
-				{
-					dist += hrz[cdir];
-					cdir = clk[cdir];
-				}
-				dist += pos[i];
-				ans += Math.min(dist, 2*W + 2*H - dist);
-			}
+			dist += pos[i];
+			dist %= 2*W + 2*H;
+			ans += Math.min(dist, 2*W + 2*H - dist);
 		}
 		System.out.println(ans);
 	}
