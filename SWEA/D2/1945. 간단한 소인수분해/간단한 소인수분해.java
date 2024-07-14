@@ -1,6 +1,4 @@
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 public class Solution {
 	public static void main(String args[]) {
